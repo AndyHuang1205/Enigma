@@ -139,7 +139,7 @@ func main() {
 	rotor5 := NewRotor("SPXYOFBMDLUJIQEAGTZRKWNCHV", 5)
 
 	// create a reflector
-	reflector := NewReflector("TJHVXQAFRYEZMUWSCLONDBPGKI")
+	reflector := NewReflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
 
 	// create a machine with the three rotors and the reflector
 	machine := NewMachine([]*Rotor{rotor1, rotor2, rotor3, rotor4, rotor5}, reflector)
