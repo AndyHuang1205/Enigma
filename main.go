@@ -44,7 +44,7 @@ func (m *Machine) encipherCharacter(x rune) rune {
 	contactIndex := strings.IndexRune(m.ALPHABET, x)
 	for _, rotor := range m.rotors {
 		contactLetter := rune(rotor.alphabet[contactIndex])
-		x = rotor.Encipher(contactLetter)
+		x = rune(rotor.Encipher(byte(contactLetter)))
 		contactIndex = strings.IndexRune(rotor.alphabet, x)
 	}
 	contactLetter := rune(m.ALPHABET[contactIndex])
@@ -53,15 +53,15 @@ func (m *Machine) encipherCharacter(x rune) rune {
 	for i := len(m.rotors) - 1; i >= 0; i-- {
 		rotor := m.rotors[i]
 		contactLetter := rune(rotor.alphabet[contactIndex])
-		x = rotor.Decipher(contactLetter)
+		x = rune(rotor.Decipher(byte(contactLetter)))
 		contactIndex = strings.IndexRune(rotor.alphabet, x)
 	}
-	m.rotors[0].Rotate()
+	m.rotors[0].Rotate(1)
 	for i := 1; i < len(m.rotors); i++ {
 		rotor := m.rotors[i]
 		turnFrequency := len(m.ALPHABET) * i
 		if m.rotors[i-1].rotations%turnFrequency == 0 {
-			rotor.Rotate()
+			rotor.Rotate(1)
 		}
 	}
 	return rune(m.ALPHABET[contactIndex])
@@ -113,11 +113,13 @@ type Reflector struct {
 	mappings map[rune]rune
 }
 
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
 func NewReflector(mappings string) *Reflector {
 	refl := &Reflector{
 		mappings: make(map[rune]rune),
 	}
-	for i, c := range Machine.ALPHABET {
+	for i, c := range ALPHABET {
 		refl.mappings[c] = rune(mappings[i])
 	}
 
@@ -140,12 +142,11 @@ func main() {
 	// create a machine with the three rotors and the reflector
 	machine := NewMachine([]*Rotor{rotor1, rotor2, rotor3}, reflector)
 
-	// encipher the message "HELLO"
-	encrypted := machine.Encipher("HELLO")
-	fmt.Println(encrypted) // prints something like "EQNVZ"
+	encrypted := machine.Encipher("TEST")
+	fmt.Println(encrypted)
 
 	// decipher the encrypted message
 	decrypted := machine.Decipher(encrypted)
-	fmt.Println(decrypted) // prints "HELLO"
+	fmt.Println(decrypted)
 
 }
