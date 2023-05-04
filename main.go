@@ -132,15 +132,17 @@ func (r *Reflector) Reflect(char rune) rune {
 
 func main() {
 	// create three rotors with different settings
-	rotor1 := NewRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", 1)
-	rotor2 := NewRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", 2)
-	rotor3 := NewRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", 3)
+	rotor1 := NewRotor("WNBPXCKJSFGUMLHYVQRTEIODAZ", 1)
+	rotor2 := NewRotor("ZXCDNYIOBTQARSMHLPWFJEUGVK", 2)
+	rotor3 := NewRotor("IKZSJVAUQLTOPYXBGRWNMFECDH", 3)
+	rotor4 := NewRotor("TWUAVHPMZGFDXBIJNYKECLQSRO", 4)
+	rotor5 := NewRotor("SPXYOFBMDLUJIQEAGTZRKWNCHV", 5)
 
 	// create a reflector
-	reflector := NewReflector("YRUHQSLDPXNGOKMIEBFZCWVJAT")
+	reflector := NewReflector("TJHVXQAFRYEZMUWSCLONDBPGKI")
 
 	// create a machine with the three rotors and the reflector
-	machine := NewMachine([]*Rotor{rotor1, rotor2, rotor3}, reflector)
+	machine := NewMachine([]*Rotor{rotor1, rotor2, rotor3, rotor4, rotor5}, reflector)
 
 	var text string
 	fmt.Print("Enter your message: ")
