@@ -61,7 +61,7 @@ func (m *Machine) encipherCharacter(x rune) rune {
 		rotor := m.rotors[i]
 		turnFrequency := len(m.ALPHABET) * i
 		if m.rotors[i-1].rotations%turnFrequency == 0 {
-			rotor.Rotate(1)
+			rotor.Rotate(10)
 		}
 	}
 	return rune(m.ALPHABET[contactIndex])
@@ -142,11 +142,15 @@ func main() {
 	// create a machine with the three rotors and the reflector
 	machine := NewMachine([]*Rotor{rotor1, rotor2, rotor3}, reflector)
 
-	encrypted := machine.Encipher("TEST")
-	fmt.Println(encrypted)
+	var text string
+	fmt.Print("Enter your message: ")
+	_, _ = fmt.Scanf("%s", &text)
 
+	encrypted := machine.Encipher(text)
+	fmt.Printf("encrypted text is %s", encrypted)
+	fmt.Println()
 	// decipher the encrypted message
 	decrypted := machine.Decipher(encrypted)
-	fmt.Println(decrypted)
+	fmt.Printf("decrypted text is %s", decrypted)
 
 }
